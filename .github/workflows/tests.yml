@@ -25,6 +25,8 @@ jobs:
     steps: 
         - name: Clone Repository
           uses: actions/checkout@v2
+        - name: Show Docker Version
+          run: docker version
         - name: Print Script
           run : |
            IMAGE="${{matrix.IMAGE}}" ENTRYPOINT="${{ matrix.ENTRYPOINT }}" TEST_CLASS="${{ matrix.TEST_CLASS }}" OPEN_RUNTIMES_BUILD_COMMAND="${{ matrix.OPEN_RUNTIMES_BUILD_COMMAND }}" OPEN_RUNTIMES_START_COMMAND="${{ matrix.OPEN_RUNTIMES_START_COMMAND }}" bash ./test.sh
