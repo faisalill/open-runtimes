@@ -25,8 +25,13 @@ jobs:
     steps: 
         - name: Clone Repository
           uses: actions/checkout@v2
-        - name: Show Docker Version
-          run: docker version
+        - name: Install Docker BuildX
+          run: |
+            mkdir -vp ~/.docker/cli-plugins/
+            curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
+            chmod a+x ~/.docker/cli-plugins/docker-buildx
+        - name: Check Docker Buildx
+          run: docker buildx version
         - name: Print Script
           run : |
            IMAGE="${{matrix.IMAGE}}" ENTRYPOINT="${{ matrix.ENTRYPOINT }}" TEST_CLASS="${{ matrix.TEST_CLASS }}" OPEN_RUNTIMES_BUILD_COMMAND="${{ matrix.OPEN_RUNTIMES_BUILD_COMMAND }}" OPEN_RUNTIMES_START_COMMAND="${{ matrix.OPEN_RUNTIMES_START_COMMAND }}" bash ./test.sh
