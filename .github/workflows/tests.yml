@@ -32,6 +32,14 @@ jobs:
             chmod a+x ~/.docker/cli-plugins/docker-buildx
         - name: Check Docker Buildx
           run: docker buildx version
+        - name: Install PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: '8.0'
+        - name: Check PHP 
+          run: php -v
+        - name: Install Dependencies
+          run: composer install
         - name: Print Script
           run : |
            IMAGE="${{matrix.IMAGE}}" ENTRYPOINT="${{ matrix.ENTRYPOINT }}" TEST_CLASS="${{ matrix.TEST_CLASS }}" OPEN_RUNTIMES_BUILD_COMMAND="${{ matrix.OPEN_RUNTIMES_BUILD_COMMAND }}" OPEN_RUNTIMES_START_COMMAND="${{ matrix.OPEN_RUNTIMES_START_COMMAND }}" bash ./test.sh
