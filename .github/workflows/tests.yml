@@ -25,17 +25,8 @@ jobs:
     steps: 
         - name: Clone Repository
           uses: actions/checkout@v2
-        - name: Update containerd.io
+        - name: Check Docker Version
           run: |
-            sudo apt-get update
-            sudo apt-get install -y containerd.io
-        - name: Upgrade Docker
-          run: |
-             docker version
-             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-             sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-             sudo apt-get update
-             sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
              docker version
         - name: Install Docker BuildX
           run: |
