@@ -28,6 +28,7 @@ jobs:
         - name: Check Docker Version
           run: |
              docker version
+             docker build --help
         - name: Install Docker BuildX
           run: |
             mkdir -vp ~/.docker/cli-plugins/
