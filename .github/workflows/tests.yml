@@ -25,6 +25,10 @@ jobs:
     steps: 
         - name: Clone Repository
           uses: actions/checkout@v2
+        - name: Update containerd.io
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y containerd.io
         - name: Upgrade Docker
           run: |
              docker version
