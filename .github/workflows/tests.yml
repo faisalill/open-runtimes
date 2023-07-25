@@ -1,0 +1,33 @@
+name: GitHub Actions Demo
+run-name: OPEN RUNTIMES TEST
+on: [push]
+env:
+  VERSION: v3
+jobs:
+  OPEN_RUNTIMES:
+    strategy:
+        matrix:
+          runtimes: [node-20.4.js]
+          include:
+            - runtimes: node-20.4.js
+              RUNTIME:  node-20.4
+              TEST_CLASS: Base
+              ENTRYPOINT: tests.js
+              IMAGE: openruntimes/node:$VERSION-20.4
+              ARCH: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+              TEST_SCRIPT: tests.sh
+              OPEN_RUNTIMES_BUILD_COMMAND: npm install
+              OPEN_RUNTIMES_START_COMMAND: pm2 start src/server.js --no-daemon
+          
+
+    runs-on: ubuntu-20.04
+    name: ${{ matrix.runtimes }}
+    steps: 
+        - name: Clone Repository
+          uses: actions/checkout@v2
+        - name: Print Script
+          run : |
+           IMAGE="${{matrix.IMAGE}}" ENTRYPOINT="${{ matrix.ENTRYPOINT }}" TEST_CLASS="${{ matrix.TEST_CLASS }}" OPEN_RUNTIMES_BUILD_COMMAND="${{ matrix.OPEN_RUNTIMES_BUILD_COMMAND }}" OPEN_RUNTIMES_START_COMMAND="${{ matrix.OPEN_RUNTIMES_START_COMMAND }}" bash ./test.sh
+        
+
+            
